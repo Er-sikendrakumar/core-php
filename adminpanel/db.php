@@ -1,18 +1,19 @@
 <?php 
-$conn=mysqli_connect("localhost","root","","ecommerce");
+$conn=mysqli_connect("localhost","root","","corephp");
 session_start();
-// if($conn){
-//     echo "Connection successful";
-// }else{
-//     echo "Error" .mysqli_connect_error();
-// }
+if($conn){
+    echo "Connection successful";
+}else{
+    echo "Error" .mysqli_connect_error();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
     switch ($action) {
         case 'Login': adminLogin($conn);
             break;
         default:
-            header("Location: http://localhost/ecommerce/adminLte/");
+            header("Location: http://localhost/corephp/adminpanel/");
             break;
     }
 }else{
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         
         default: 
-            header("Location: http://localhost/ecommerce/adminLte/");
+            header("Location: http://localhost/corephp/adminpanel/");
             break;
     }
 }
@@ -42,7 +43,7 @@ function logOut()
     unset( $_SESSION['useremail']);
     unset( $_SESSION['username']);
     session_destroy();
-    header("Location: http://localhost/ecommerce/adminLte/");
+    header("Location: http://localhost/corephp/adminpanel/");
     
 }
 ?>

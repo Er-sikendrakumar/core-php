@@ -33,20 +33,12 @@
                 <!-- <span class="badge badge-info right">6</span> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              
+            <ul class="nav nav-treeview">             
               <li class="nav-item">
                 <a href="home.php" class="nav-link">
                   <!-- <i class="far fa-circle nav-icon"></i> -->
                   <p> Home </p>
-                </a>
-              <!-- </li>
-                  <li class="nav-item">
-                    <a href="../layout/boxed.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Password change</p>
-                    </a>
-                  </li> -->
+                </a>             
             </ul>
           </li>
           <li class="nav-item">
@@ -65,13 +57,27 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="category.php" class="nav-link">
-              <!-- <i class="nav-icon fas fa-tree"></i> -->
+            <a href="#" class="nav-link">
+              <!-- <i class="nav-icon fas fa-copy"></i> -->
               <p>
                 Category
-                <!-- <i class="fas fa-angle-left right"></i> -->
+                <i class="fas fa-angle-left right"></i>
+                <!-- <span class="badge badge-info right">6</span> -->
               </p>
-            </a> 
+            </a>
+            <ul class="nav nav-treeview">             
+              <li class="nav-item">
+                <a href="category.php" class="nav-link">
+                  <!-- <i class="far fa-circle nav-icon"></i> -->
+                  <p> Add Category </p>
+                </a>
+              </li>
+                  <li class="nav-item">
+                    <a href="list_category.php" class="nav-link">                  
+                      <p>List Category</p>
+                    </a>
+                  </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="post.php" class="nav-link">
@@ -80,13 +86,7 @@
                Posts
               </p>
             </a>
-          </li>
-          <!-- <li class="nav-item">
-            <a href="../examples/login.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-                <p>Login v1</p>
-            </a>
-          </li> -->
+          </li>         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

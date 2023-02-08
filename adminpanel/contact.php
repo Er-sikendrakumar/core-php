@@ -22,20 +22,20 @@ include 'sidebar.php';
                 </div>
                 <div class="container">
                     <div class="col-md-7">
-                        <form action="" method="POST">
+                        <form action="code.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                               <label for="">Email</label>
                               <input type="email" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">                        
                             </div>
                             <div class="form-group">
                           <label for="">Phone</label>
-                          <input type="email" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">                        
+                          <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">                        
                         </div>
                         <div class="form-group">
                           <label for="">Address</label>
-                          <textarea type="text" name="email" id="" class="form-control" placeholder="" > </textarea>                      
+                          <textarea type="text" name="address" id="" class="form-control" placeholder="" > </textarea>                      
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="contactus" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>

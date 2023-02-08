@@ -26,7 +26,7 @@ include 'sidebar.php';
             <div class="container-fluid">
                 <div class="">
                     <div class="col-md-8">
-                        <form action="" method="post">
+                        <form action="code.php" method="post" enctype="multipart/form-data">
                         <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
@@ -51,10 +51,10 @@ include 'sidebar.php';
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
-                          <input type="file" class="form-control" name="image" placeholder="image" value="">
+                          <input type="file" class="form-control" name="file" placeholder="image" value="">
                           <!-- <small class="text-danger"></small> -->
                         </div>
-                        <button type="submit" class="btn btn-primary offset-sm-2 mt-2">Submit</button>
+                        <button type="submit" name="aboutpage" class="btn btn-primary offset-sm-2 mt-2">Submit</button>
                       </div>
                         </form>
                     </div>
