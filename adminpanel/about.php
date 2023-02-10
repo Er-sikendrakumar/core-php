@@ -16,7 +16,7 @@ include 'sidebar.php';
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home.php">Home</a></li>
-                    <li class="breadcrumb-item active">About</li>
+                    <li class="breadcrumb-item active"><a href="contact.php">Contact</a></li>
                     </ol>
                 </div>
                 </div>

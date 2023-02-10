@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         case 'Login': adminLogin($conn);
             break;
         default:
-            header("Location: http://localhost/corephp/adminpanel/");
+            header("Location: http://localhost/core-php/adminpanel/");
             break;
     }
 }else{
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         
         default: 
-            header("Location: http://localhost/corephp/adminpanel/");
+            header("Location: http://localhost/core-php/adminpanel/");
             break;
     }
 }
@@ -43,7 +43,23 @@ function logOut()
     unset( $_SESSION['useremail']);
     unset( $_SESSION['username']);
     session_destroy();
-    header("Location: http://localhost/corephp/adminpanel/");
+    header("Location: http://localhost/core-php/adminpanel/");
     
+}
+
+if(isset($_POST['register'])){
+    $name = $_POST['username'];
+    $emil = $_POST['useremail'];
+    $pwd = $_POST['password'];
+    $sql = "insert into users(name,email,password) values('$name','$emil','$pwd')";
+    $result = mysqli_query($conn, $sql);
+    if($result==true){
+        echo "<script>
+            alert('Register success');
+            window.location.href='sigin.php';
+        </script>";
+    }else{
+        echo "Error" . mysqli_error($conn);
+    }
 }
 ?>

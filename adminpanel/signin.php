@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Rgister Page</title>
+	<title>Login Page</title>
    <!--Made with love by Mutiullah Samim -->
    
 	<!--Bootsrap 4 CDN-->
@@ -25,7 +25,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-background-image: url('http://localhost/Ecommerce-%20website/adminLte/image_signup/bg-registration-form-5.jpg');
+background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -116,7 +116,7 @@ margin-left: 4px;
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3>Sign Up</h3>
+				<h3>Sign In</h3>
 				<div class="d-flex justify-content-end social_icon">
 					<span><i class="fab fa-facebook-square"></i></span>
 					<span><i class="fab fa-google-plus-square"></i></span>
@@ -125,18 +125,11 @@ margin-left: 4px;
 			</div>
 			<div class="card-body">
 				<form method="POST" action="db.php">
-                <div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" name="username" class="form-control" placeholder="username">
-						
-					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="email" name="useremail" class="form-control" placeholder="useremail">
+						<input type="email" name="username" class="form-control" placeholder="useremail">
 						
 					</div>
 					<div class="input-group form-group">
@@ -149,17 +142,17 @@ margin-left: 4px;
 						<input type="checkbox">Remember Me
 					</div>
 					<div class="form-group">
-						<input type="submit" value="register" name="register" class="btn float-right login_btn">
+						<input type="submit" value="Login" name="action" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Do u have an account?<a href="signin.php">Sign In</a>
+					Don't have an account?<a href="register.php">Sign Up</a>
 				</div>
-				<!-- <div class="d-flex justify-content-center">
+				<div class="d-flex justify-content-center">
 					<a href="#">Forgot your password?</a>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</div>

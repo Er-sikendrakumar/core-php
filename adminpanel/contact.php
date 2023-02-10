@@ -11,12 +11,12 @@ include 'sidebar.php';
             <div class="container-fluid">
                 <div class="row mb-2">
                 <div class="col-sm-6 text-green">
-                    <h1>Home</h1>
+                    <h1>Contact</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home.php">Home</a></li>
-                    <li class="breadcrumb-item active">About</li>
+                    <li class="breadcrumb-item active"><a href="about.php">About</a></li>
                     </ol>
                 </div>
                 </div>
