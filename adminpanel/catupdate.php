@@ -20,10 +20,9 @@ include 'sidebar.php';
                     </ol>
                 </div>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
-        <section class="contact">
-        
+        <section class="contact">      
             <div class="container-fluid">
                 <div class="">
                     <div class="col-md-8">

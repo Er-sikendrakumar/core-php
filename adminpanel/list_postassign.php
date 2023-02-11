@@ -45,21 +45,18 @@ include 'sidebar.php';
                             $result = mysqli_query($conn, $sql);
                             if(mysqli_num_rows($result) >0){
                                 while($row=mysqli_fetch_assoc($result)){
-                                    $id = $row['id'];
-                                    
-                                   echo "<tr>
-                                <td>".$id. "</td>
-                                <td>".$row['title']."</td>                                 
-                                <td>".$row['content']."</td> 
-                                <td>"."<img src=".$row['image']." height=100 width=100 />"."</td>                                                       
-                                <td><button class='btn btn-warning'><a href='update_post.php?postupdateid=$id' class='text-dark'>Edit</a></button></td>
-                                <td><button class='btn btn-danger'><a href='code.php?postdeleteid=$id' class='text-dark'>Delete</a></button></td>
-                            </tr>";
+                                    $id = $row['id'];                                   
+                                 echo "<tr>
+                                    <td>".$id. "</td>
+                                    <td>".$row['title']."</td>                                 
+                                    <td>".$row['content']."</td> 
+                                    <td>"."<img src=".$row['image']." height=100 width=100 />"."</td>                                                       
+                                    <td><button class='btn btn-warning'><a href='update_post.php?postupdateid=$id' class='text-dark'>Edit</a></button></td>
+                                    <td><button class='btn btn-danger'><a href='code.php?postdeleteid=$id' class='text-dark'>Delete</a></button></td>
+                                 </tr>";
                                 }
                             }
-                            ?>
-                            
-                                                  
+                            ?>                                                                
                         </tbody>
                     </table>
                 </div>
