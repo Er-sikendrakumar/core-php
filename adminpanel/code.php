@@ -190,7 +190,6 @@ if(isset($_GET['postdeleteid'])){
 //Update post
  if(isset($_POST['postupdate'])){
     $id = $_POST['pid'];
-    // echo $id;
     $title = $_POST['title'];
     $multicat = $_POST['multiselect'];
     $cont = $_POST['content'];

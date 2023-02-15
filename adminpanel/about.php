@@ -1,3 +1,4 @@
+
 <?php 
 include 'session.php';
 include 'header.php';
@@ -5,47 +6,72 @@ include 'sidebar.php';
 ?>
 
 <?php
-$conn=mysqli_connect("localhost","root","","corephp");
-  $title="";
-  $description="";
-  $shortdes="";
-  $file_store="";
+   $title="";
+   $description="";
+   $shortdes="";
+   $file_extension="";
+   $conn=mysqli_connect("localhost","root","","corephp");
   if(isset($_POST['aboutpage']))
   {
-      $title = $_POST['title'];
-      $description = $_POST['description'];
-      $shortdes = $_POST['shortdes'];
-      $file_name=$_FILES['file']['name'];
-      $file_type=$_FILES['file']['type'];
-      $file_size=$_FILES['file']['size'];
-      $file_tem_loc=$_FILES['file']['tmp_name'];
-      $file_store="uploads/".$file_name;
-      move_uploaded_file($file_tem_loc,$file_store);
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $shortdes = $_POST['shortdes'];
+    // $file=$_FILES['file']['name'];
 
-      if($title==""){
-        $title="Please enter title";
-      }elseif ($description=="") {
-        $description="Please enter description";
-      }elseif($shortdes==""){
-        $shortdes="Please enter short description";
-      }elseif ($file_store=="") {
-        $file_store="Choose a file";
-      }else{
-
-      
-      $aboutsql = "insert into about_page(title,description,short_des,image) values('$title','$description','$shortdes','$file_store')";
-      $aboutdata = mysqli_query($conn,$aboutsql);
-      if($aboutdata==true)
-      {
-          echo "<script>
-              alert('One row added successfully');
-              window.location.href='about.php';
-              </script>";
-      }else{
-          echo "Error". mysqli_error($conn);
-      }
+    if($title==""){
+      $title="Please enter title";
     }
+    if($description==""){
+      $description="Please enter description";
+    }
+    if($shortdes==""){
+      $shortdes="Please enter short desc";
+    }
+    // image part
+    $allowed_image_extension = array(
+      "png",
+      "jpg",
+      "jpeg"
+  );
+  // Get image file extension
+  $file_extension = pathinfo($_FILES["file-input"]["name"], PATHINFO_EXTENSION);
+  
+  // Validate file input to check if is not empty
+  if (! file_exists($_FILES["file-input"]["tmp_name"])) {
+      $response = array(
+          "type" => "error",
+          "message" => "Choose image file to upload."
+      );
+  }    // Validate file input to check if is with valid extension
+  else if (! in_array($file_extension, $allowed_image_extension)) {
+      $response = array(
+          "type" => "error",
+          "message" => "Upload valid images. Only PNG and JPEG are allowed."
+      );
+      
+  }    // Validate image file size
+  else if (($_FILES["file-input"]["size"] > 2000000)) {
+      $response = array(
+          "type" => "error",
+          "message" => "Image size exceeds 2MB"
+      );
+  }   
+      else {
+      $target = "uploads/" . basename($_FILES["file-input"]["name"]);
+      move_uploaded_file($_FILES["file-input"]["tmp_name"], $target);
+      $aboutsql = "insert into about_page(title,description,short_des,image) values('$title','$description','$shortdes','$target')";
+      $aboutdata = mysqli_query($conn,$aboutsql);
+        if($aboutdata==true)
+        {
+            echo "<script>
+                alert('One row added successfully');
+                window.location.href='about.php';
+                </script>";
+        }else{
+            echo "Error". mysqli_error($conn);
+        }   
   }
+  } 
 ?>
 
  <!-- Horizontal Form -->
@@ -95,8 +121,10 @@ $conn=mysqli_connect("localhost","root","","corephp");
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
-                          <input type="file" class="form-control" name="file" placeholder="image" value="" >
-                          <span class="error"><?php echo $file_store;?></span>
+                          <input type="file" class="form-control" name="file-input" placeholder="image" value="" >
+                          <?php if(!empty($response)) { ?>
+                          <div class="response <?php echo $response["type"]; ?>"><?php echo $response["message"]; ?></div>
+                          <?php }?>
                         </div>
                         <button type="submit" name="aboutpage" class="btn btn-primary offset-sm-2 mt-2">Submit</button>
                       </div>
@@ -104,6 +132,24 @@ $conn=mysqli_connect("localhost","root","","corephp");
                     </div>
                 </div>
             </div>
+            <?php  
+            
+            // if(isset($_POST['aboutpage'])) {  
+            //     if($titleerr == "" && $descriptionerr == "" && $file_storeerr=="" &&$shortdeserr == "") {   
+            //       $aboutsql = "insert into about_page(title,description,short_des,image) values('$title','$description','$shortdes','$file_store')";
+            //       $aboutdata = mysqli_query($conn,$aboutsql);
+            //       if($aboutdata==true)
+            //       {
+            //           echo "<script>
+            //               alert('One row added successfully');
+            //               window.location.href='about.php';
+            //               </script>";
+            //       }else{
+            //           echo "Error". mysqli_error($conn);
+            //       }
+            //     } 
+            // }  
+            ?>  
         </section>
     </div>
  

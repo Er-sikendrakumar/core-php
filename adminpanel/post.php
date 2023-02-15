@@ -13,27 +13,51 @@ $conn=mysqli_connect("localhost","root","","corephp");
     $file_type="";
     if(isset($_POST['multi_cat_select']))
     {
+        // print_r($_POST);exit();
         $title = $_POST['title'];
-        $multicat = $_POST['multiselect'];
-        $cont = $_POST['content1'];
-        $file_name=$_FILES['file']['name'];
-        $file_type=$_FILES['file']['type'];
-        $file_size=$_FILES['file']['size'];
-        $file_tem_loc=$_FILES['file']['tmp_name'];
-        $file_store="uploads/".$file_name;
-        move_uploaded_file($file_tem_loc,$file_store);    
-            // echo $item . "<br>";
+        $multicat = isset($_POST['multiselect'])?$_POST['multiselect']:"";
+        $cont = $_POST['content1'];         
+            
             if($title==""){
                 $title="Please enter title";
-            }elseif($multicat==""){
-                $item="Please enter content";    
-            }elseif($cont==""){
-                $cont="Please enter content";
-            }elseif($file_name==""){
-                $file_type="Choose a file";
-            }else{
-  
-            $postsql = "insert into post(title,content,image) values('$title','$cont','$file_store')";
+            }if($multicat==""){
+                $multicat="Select category";    
+            }if($cont==""){
+                $cont="Please enter content";         
+            }
+             // image part
+            $allowed_image_extension = array(
+                "png",
+                "jpg",
+                "jpeg"
+            );
+            // Get image file extension
+            $file_extension = pathinfo($_FILES["file-input"]["name"], PATHINFO_EXTENSION);
+            
+            // Validate file input to check if is not empty
+            if (! file_exists($_FILES["file-input"]["tmp_name"])) {
+                $response = array(
+                    "type" => "error",
+                    "message" => "Choose image file to upload."
+                );
+            }    // Validate file input to check if is with valid extension
+            else if (! in_array($file_extension, $allowed_image_extension)) {
+                $response = array(
+                    "type" => "error",
+                    "message" => "Upload valid images. Only PNG and JPEG are allowed."
+                );
+                
+            }    // Validate image file size
+            else if (($_FILES["file-input"]["size"] > 2000000)) {
+                $response = array(
+                    "type" => "error",
+                    "message" => "Image size exceeds 2MB"
+                );
+            }
+            else{
+            $target = "uploads/" . basename($_FILES["file-input"]["name"]);
+             move_uploaded_file($_FILES["file-input"]["tmp_name"], $target);   
+            $postsql = "insert into post(title,content,image) values('$title','$cont','$target')";
             $presult = mysqli_query($conn, $postsql);
             $post_id = $conn->insert_id;
             foreach ($multicat as $item) {
@@ -74,13 +98,13 @@ $conn=mysqli_connect("localhost","root","","corephp");
                 <div class="">
                     <div class="col-md-8">                
                         <form action="" method="post" enctype="multipart/form-data">
-                        <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Title</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="title" placeholder="title" value="" >
-                          <span class="error"><?php echo $title; ?></span>
-                        </div>
-                       </div>
+                            <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="title" placeholder="title" value="" >
+                                    <span class="error"><?php echo $title; ?></span>
+                                </div>
+                            </div>
                         <div class="container mt-3">                                          
                             <label for="sel2" class="form-label ">   Category:</label>
                             <select multiple class="form-select bg-light" id="sel2" name="multiselect[]" >
@@ -98,21 +122,23 @@ $conn=mysqli_connect("localhost","root","","corephp");
                              } 
                                 ?>                                          
                            </select>
-                           <span class="error"><?php  ?> </span>
+                           <span class="error"><?php echo $multicat; ?> </span>
                         </div> 
                         <div class="form-group row mt-4">
-                        <label for="inputName" class="col-sm-2 col-form-label">Content</label>
-                        <div class="col-sm-10">
-                          <textarea type="text" class="form-control" name="content1" placeholder="content" value=""></textarea>
-                          <span class="error"><?php echo $cont; ?></span>
-                        </div>
+                            <label for="inputName" class="col-sm-2 col-form-label">Content</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" class="form-control" name="content1" placeholder="content" value=""></textarea>
+                                <span class="error"><?php echo $cont; ?></span>
+                            </div>
                        </div>
                        <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
-                          <input type="file" class="form-control" name="file" placeholder="image" value="">
-                          <span class="error"><?php echo $file_type; ?></span>
-                        </div>
+                            <label for="inputName" class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="file-input" placeholder="image" value="">
+                                <?php if(!empty($response)) { ?>
+                                <div class="response <?php echo $response["type"]; ?>"><?php echo $response["message"]; ?></div>
+                                <?php }?>
+                            </div>
                        </div>
                             <button type="submit" name="multi_cat_select" class="btn btn-primary mt-3">Submit</button>                                                    
                         </form>

@@ -8,33 +8,58 @@ $conn=mysqli_connect("localhost","root","","corephp");
 $email="";
 $phone="";
 $address="";
-if (isset($_POST['contactus'])){
+$emailerr = $phoneerr = $addresserr ="";
+if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     
-    if($email==""){
-        $email = "please Enter email";
-        // echo "<script>document.getElementById('email')classList.add('error2'); </script>";
-    }elseif(empty($phone)){
-        $phone = "please Enter phone";
-    }elseif(empty($address)){
-        $address = "please Enter address";
+    if(empty($_POST['email'])){
+        $emailerr = "please Enter email";
     }else{
-        
-        $contactsql = "insert into contactus(email,phone,address) values('$email','$phone','$address')";
-        $data = mysqli_query($conn, $contactsql);
-        if($data==true)
-        {
-            echo "<script>
-                alert('Contact added Successfully');
-                window.location.href='contact.php';
-            </script>";
-        }else{
-            echo "Error" . mysqli_error($conn);
-        }
+        $email = input_data($_POST["email"]);  
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {  
+                $emailerr = "Invalid email format";  
+            }  
     }
+    if(empty($_POST['phone'])){
+        $phoneerr="Phone No is required";
+    }else
+    {
+        $phone = input_data($_POST["phone"]);  
+        if (!preg_match ("/^[0-9]*$/", $phone) ) {  
+        $phoneerr = "Only numeric value is allowed.";  
+        }  
+      if (strlen ($phone) != 10) {  
+        $phoneerr = "Mobile no must contain 10 digits.";  
+        } 
+    }
+    if(empty($_POST['address'])){
+        $addresserr=" Please enter address";
+    }else{
+        $address=input_data($_POST['address']);
+    }
+    // else{
+        
+    //     $contactsql = "insert into contactus(email,phone,address) values('$email','$phone','$address')";
+    //     $data = mysqli_query($conn, $contactsql);
+    //     if($data==true)
+    //     {
+    //         echo "<script>
+    //             alert('Contact added Successfully');
+    //             window.location.href='contact.php';
+    //         </script>";
+    //     }else{
+    //         echo "Error" . mysqli_error($conn);
+    //     }
+    // }
 }
+    function input_data($data) {  
+        $data = trim($data);  
+        $data = stripslashes($data);  
+        $data = htmlspecialchars($data);  
+        return $data;  
+    }  
 
 ?>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
@@ -56,22 +81,22 @@ if (isset($_POST['contactus'])){
                 </div>
                 <div class="container">
                     <div class="col-md-7">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                               <label for="">Email</label>
                               <input type="email" name="email" id="email" class="form-control" placeholder="Email" >
-                              <span class="error"><?php echo $email; ?></span>                        
+                              <span class="error"><?php echo $emailerr; ?></span>                        
                             </div>
                             <div class="form-group">
                           <label for="">Phone</label>
                           <input type="text" name="phone" id="" class="form-control" placeholder="Phone" > 
-                          <span class="error"><?php echo $phone; ?></span>                         
+                          <span class="error"><?php echo $phoneerr; ?></span>                         
                        
                         </div>
                         <div class="form-group">
                           <label for="">Address</label>
                           <textarea type="text" name="address" id="" class="form-control" placeholder="Address" > </textarea>
-                          <span class="error"><?php echo $address; ?></span>                         
+                          <span class="error"><?php echo $addresserr; ?></span>                         
                       
                         </div>
                         <button type="submit" name="contactus" class="btn btn-primary">Submit</button>
@@ -79,6 +104,23 @@ if (isset($_POST['contactus'])){
                     </div>
                 </div>
             </div>
+            <?php  
+            if(isset($_POST['contactus'])) {  
+                if($emailerr == "" && $phoneerr == "" && $addresserr == "") {   
+                    $contactsql = "insert into contactus(email,phone,address) values('$email','$phone','$address')";
+                        $data = mysqli_query($conn, $contactsql);
+                        if($data==true)
+                        {
+                            echo "<script>
+                                alert('Contact added Successfully');
+                                window.location.href='contact.php';
+                            </script>";
+                        }else{
+                            echo "Error" . mysqli_error($conn);
+                        } 
+                } 
+            }  
+            ?>  
         </section>
     </div>
  <style>
