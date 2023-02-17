@@ -27,6 +27,33 @@ $(function () {
   bsCustomFileInput.init();
 });
 </script>
+<!-- add more button -->
+<script>  
+ $(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Income Type" class="form-control name_list" /></td><td><input type="text" name="salary1[]" placeholder="Earning Amount" class="form-control" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#addemployee').click(function(){            
+           $.ajax({  
+                url:"name.php",  
+                method:"POST",  
+                data:$('#add_name').serialize(),  
+                success:function(data)  
+                {  
+                     alert(data);  
+                     $('#add_name')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
+
 <script>
   $(function () {
     $("#allproduct").DataTable({

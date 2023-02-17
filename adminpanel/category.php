@@ -13,7 +13,7 @@ if(isset($_POST['categorypag']))
     $description = $_POST['description'];
     if($category==""){
         $category="Please enter category";
-    }elseif ($description=="") {
+    }if ($description=="") {
         $description="Please enter some description";
     }else{
   

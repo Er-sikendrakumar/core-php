@@ -188,7 +188,8 @@ if(isset($_GET['postdeleteid'])){
 }
 
 //Update post
- if(isset($_POST['postupdate'])){
+ if(isset($_POST['postupdate']))
+{
     $id = $_POST['pid'];
     $title = $_POST['title'];
     $multicat = $_POST['multiselect'];
@@ -212,5 +213,50 @@ if(isset($_GET['postdeleteid'])){
         echo "Error" . mysqli_error($conn);
     }
 }
+    
+    // Delete Employee
+    
+    if(isset($_GET['delempid'])){
+    $id = $_GET['delempid'];
+    $empsql = "delete  from employee where id=$id";
+    $delresult = mysqli_query($conn, $empsql);
+    $othersql="delete from employee_other_salary where emp_id=$id";
+    $otherresult=mysqli_query($conn,$othersql);
+    if($delresult==true){
+        echo "<script>
+            alert('One data deleted successfully');
+            window.location.href='list_employee.php';
+        </script>";
+    }else{
+        echo "Error" . mysqli_error($conn);
+    }
+}
+
+if(isset($_POST['updateemployee'])){
+    $emid=$_POST['empid'];
+    
+    $fname=$_POST['fname'];
+    $lname=$_POST['lname'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $salary=$_POST['salary'];
+    $address=$_POST['gender'];
+    $addaddress=$_POST['addaddress'];
+    $empupd="update employee set fname='$fname',lname='$lname',email='$email',phone='$phone',salary='$salary',select_address='$address',address='$addaddress' where id='$emid'";
+    $empres=mysqli_query($conn,$empupd);
+
+    foreach ($_POST['name'] as $key => $value) {
+        $salary=$_POST['salary1'][$key];
+        $salsql="update  employee_other_salary set name='$value', other_salary='$salary' where emp_id=$emid";
+        $smpt=mysqli_query($conn,$salsql);
+     }
+    if($empres==true){
+        echo "<script>
+                alert('One Employee updated successfully');
+                window.location.href='list_employee.php';
+            </script>";
+    }
+}
+
 ?>
 

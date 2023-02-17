@@ -56,13 +56,7 @@
               </p>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="validtiontest.php" class="nav-link">
-              <p>
-               validate
-              </p>
-            </a>
-          </li> -->
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <!-- <i class="nav-icon fas fa-copy"></i> -->
@@ -109,6 +103,28 @@
                   <p>List Post</p>
               </a>
             </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <!-- <i class="nav-icon fas fa-copy"></i> -->
+              <p>
+                Employee
+                <i class="fas fa-angle-left right"></i>               
+              </p>
+            </a>
+            <ul class="nav nav-treeview">             
+              <li class="nav-item">
+                <a href="add_employee.php" class="nav-link">                 
+                  <p> Add Employee </p>
+                </a>
+              </li>
+                  <li class="nav-item">
+                    <a href="list_employee.php" class="nav-link">                  
+                      <p>List employee</p>
+                    </a>
+                  </li>
             </ul>
           </li>               
         </ul>
